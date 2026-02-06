@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light dark">
+    <title>Calculadora por Custo/Hora - T2C Group</title>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Calculadora por Custo/Hora Projetos e Sustentação</h1>
+            <div class="logo">T2C GROUP</div>
+        </div>
+
+        <div class="content">
+            <!-- Seletor de Tipo -->
+            <div class="type-selector">
+                <h3>Selecione o Tipo de Precificação:</h3>
+                <div class="type-options">
+                    <div class="type-option">
+                        <input type="radio" id="typeProjetos" name="calculationType" value="62.25" checked>
+                        <label for="typeProjetos">
+                            <div>🚀 Projetos</div>
+                            <span class="type-value">R$ 62,25/h</span>
+                        </label>
+                    </div>
+                    <div class="type-option">
+                        <input type="radio" id="typeSustentacao" name="calculationType" value="49.11">
+                        <label for="typeSustentacao">
+                            <div>🔧 Sustentação</div>
+                            <span class="type-value">R$ 49,11/h</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Seção de Informações do Orçamento -->
+            <div class="info-section">
+                <div class="info-grid">
+                    <div class="info-field">
+                        <label>Nome do Orçamento/Cliente</label>
+                        <input type="text" id="budgetName" placeholder="Digite o nome do orçamento ou cliente">
+                    </div>
+                    <div class="info-field">
+                        <label>Data do Cálculo</label>
+                        <input type="text" id="calculationDate" class="readonly" readonly>
+                    </div>
+                    <div class="info-field" style="grid-column: 1 / -1;">
+                        <label>Observações</label>
+                        <textarea id="observations" placeholder="Adicione observações sobre este orçamento"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Seção de Projetos/Serviços -->
+            <div class="projects-container">
+                <h2 class="section-title">Projetos / Serviços</h2>
+                <div id="projectsContainer"></div>
+                <button class="add-project-btn" id="addProjectBtn">
+                    <span>+</span> Adicionar Projeto/Serviço
+                </button>
+            </div>
+
+            <!-- Resumo Total -->
+            <div class="summary-section">
+                <h2 class="section-title" style="color: white; border-color: white;">Resumo Geral</h2>
+                <div class="summary-grid">
+                    <div class="summary-item">
+                        <div class="summary-label">Total de Horas</div>
+                        <div class="summary-value" id="totalHours">0h</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-label">Custo Total Empresa</div>
+                        <div class="summary-value" id="totalCost">R$ 0,00</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-label">Valor Total ao Cliente</div>
+                        <div class="summary-value highlight" id="totalClient">R$ 0,00</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ações -->
+            <div class="actions">
+                <button class="btn btn-primary" id="saveBtn">
+                    💾 Salvar Orçamento
+                </button>
+                <button class="btn btn-secondary" id="clearBtn">
+                    🗑️ Limpar Tudo
+                </button>
+                <button class="btn btn-secondary" id="historyBtn">
+                    📜 Histórico
+                </button>
+                <button class="btn btn-info" id="statsBtn">
+                    📊 Estatísticas
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast de Notificação -->
+    <div class="toast" id="toast"></div>
+
+    <!-- Modal de Histórico -->
+    <div class="modal" id="historyModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Histórico de Orçamentos</h3>
+                <button class="close-modal" id="closeModalBtn">×</button>
+            </div>
+            <div id="historyModalContent"></div>
+        </div>
+    </div>
+
+    <!-- Modal de Estatísticas -->
+    <div class="modal" id="statsModal">
+        <div class="modal-content modal-stats">
+            <div class="modal-header">
+                <h3 class="modal-title">📊 Estatísticas e Análises</h3>
+                <button class="close-modal" id="closeStatsBtn">×</button>
+            </div>
+            <div id="statsModalContent">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-label">Total de Cotações</div>
+                        <div class="stat-value" id="statTotalQuotes">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Valor Total Cotado</div>
+                        <div class="stat-value" id="statTotalValue">R$ 0,00</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Valor Médio</div>
+                        <div class="stat-value" id="statAvgValue">R$ 0,00</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Total de Horas</div>
+                        <div class="stat-value" id="statTotalHours">0h</div>
+                    </div>
+                </div>
+
+                <div class="charts-container">
+                    <div class="chart-wrapper">
+                        <h4 class="chart-title">Distribuição por Tipo</h4>
+                        <canvas id="chartByType"></canvas>
+                    </div>
+                    <div class="chart-wrapper">
+                        <h4 class="chart-title">Top 5 Maiores Cotações</h4>
+                        <canvas id="chartTopQuotes"></canvas>
+                    </div>
+                    <div class="chart-wrapper full-width">
+                        <h4 class="chart-title">Evolução Temporal</h4>
+                        <canvas id="chartTimeline"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- IMPORTANT: This loads your TypeScript UI code -->
+    <script type="module" src="./src/mcp-app.ts"></script>
+</body>
+</html>

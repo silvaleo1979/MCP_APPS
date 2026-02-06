@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "calculadora-proposta": {
+      "command": "node",
+      "args": [
+        "C:/Users/silva/OneDrive/Documentos/Python/MCP Apps/calculadora-proposta-mcp/dist/index.js",
+        "--stdio"
+      ],
+      "env": {}
+    }
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "name": "@t2cgroup/calculadora-proposta-mcp",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Calculadora de Propostas T2C Group - MCP App com histórico de cotações",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "files": [
+    "dist",
+    "data"
+  ],
+  "scripts": {
+    "build": "tsc --noEmit && cross-env INPUT=mcp-app.html vite build && tsc -p tsconfig.server.json",
+    "dev": "cross-env NODE_ENV=development concurrently \"cross-env INPUT=mcp-app.html vite build --watch\" \"tsx watch main.ts\"",
+    "start:http": "cross-env NODE_ENV=development npm run build && node dist/index.js",
+    "start:stdio": "cross-env NODE_ENV=development npm run build && node dist/index.js --stdio"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/ext-apps": "^1.0.0",
+    "@modelcontextprotocol/sdk": "^1.24.0",
+    "chart.js": "^4.5.1",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "zod": "^4.1.13"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.10.0",
+    "concurrently": "^9.2.1",
+    "cross-env": "^10.1.0",
+    "tsx": "^4.0.0",
+    "typescript": "^5.9.3",
+    "vite": "^6.0.0",
+    "vite-plugin-singlefile": "^2.3.0"
+  },
+  "bin": {
+    "calculadora-proposta": "dist/index.js"
+  }
+}

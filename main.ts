@@ -1,0 +1,85 @@
+import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
+import { createMcpExpressApp } from "@modelcontextprotocol/sdk/server/express.js";
+import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
+import cors from "cors";
+import type { Request, Response } from "express";
+import { createServer } from "./server.js";
+
+/**
+ * Starts HTTP server (for testing with basic-host)
+ */
+export async function startStreamableHTTPServer(
+  createServer: () => McpServer
+): Promise<void> {
+  const port = parseInt(process.env.PORT ?? "3001", 10);
+  const app = createMcpExpressApp({ host: "0.0.0.0" });
+  app.use(cors());
+
+  app.all("/mcp", async (req: Request, res: Response) => {
+    const server = createServer();
+    const transport = new StreamableHTTPServerTransport({
+      sessionIdGenerator: undefined, // Stateless mode
+    });
+
+    res.on("close", () => {
+      transport.close().catch(() => {});
+      server.close().catch(() => {});
+    });
+
+    try {
+      await server.connect(transport);
+      await transport.handleRequest(req, res, req.body);
+    } catch (error) {
+      console.error("MCP error:", error);
+      if (!res.headersSent) {
+        res.status(500).json({
+          jsonrpc: "2.0",
+          error: { code: -32603, message: "Internal server error" },
+          id: null,
+        });
+      }
+    }
+  });
+
+  const httpServer = app.listen(port, (err?: Error) => {
+    if (err) {
+      console.error("Failed to start server:", err);
+      process.exit(1);
+    }
+    console.log(`🚀 Calculadora Proposta MCP Server listening on http://localhost:${port}/mcp`);
+    console.log(`📊 Ready to create and manage quotations!`);
+  });
+
+  const shutdown = () => {
+    console.log("\n👋 Shutting down...");
+    httpServer.close(() => process.exit(0));
+  };
+
+  process.on("SIGINT", shutdown);
+  process.on("SIGTERM", shutdown);
+}
+
+/**
+ * Starts stdio server (for Claude Desktop)
+ */
+export async function startStdioServer(
+  createServer: () => McpServer
+): Promise<void> {
+  console.error("🚀 Starting Calculadora Proposta MCP Server in stdio mode...");
+  await createServer().connect(new StdioServerTransport());
+  console.error("✅ Server connected and ready!");
+}
+
+async function main() {
+  if (process.argv.includes("--stdio")) {
+    await startStdioServer(createServer);
+  } else {
+    await startStreamableHTTPServer(createServer);
+  }
+}
+
+main().catch((e) => {
+  console.error("❌ Fatal error:", e);
+  process.exit(1);
+});

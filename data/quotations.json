@@ -1,0 +1,150 @@
+[
+  {
+    "budgetName": "Suzana",
+    "observations": "TEste Suzana",
+    "calculationType": "62.25",
+    "calculationTypeLabel": "Projetos",
+    "projects": [
+      {
+        "name": "Projeto 1",
+        "costPerHour": 62.25,
+        "tax": 22,
+        "load": 35,
+        "margin": 80,
+        "commission": 0,
+        "hours": 1000,
+        "totalCostPerHour": 102.53,
+        "finalHourlyRate": 153.79,
+        "projectTotal": 1537.89
+      },
+      {
+        "name": "Projeto 3",
+        "costPerHour": 62.25,
+        "tax": 22,
+        "load": 35,
+        "margin": 30,
+        "commission": 0,
+        "hours": 20,
+        "totalCostPerHour": 102.53,
+        "finalHourlyRate": 133.28,
+        "projectTotal": 2665.67
+      }
+    ],
+    "totalHours": 1020,
+    "totalCost": 63495,
+    "totalClient": 4203.56,
+    "id": 1770322710439,
+    "date": "05/02/2026, 17:18:30"
+  },
+  {
+    "budgetName": "Usiminas",
+    "observations": "pessoas",
+    "calculationType": "49.11",
+    "calculationTypeLabel": "Sustentação",
+    "projects": [
+      {
+        "name": "Projeto 1",
+        "costPerHour": 49.11,
+        "tax": 22,
+        "load": 35,
+        "margin": 100,
+        "commission": 10,
+        "hours": 300,
+        "totalCostPerHour": 80.88,
+        "finalHourlyRate": 121.33,
+        "projectTotal": 19412.2
+      },
+      {
+        "name": "Projeto 2",
+        "costPerHour": 49.11,
+        "tax": 22,
+        "load": 35,
+        "margin": 40,
+        "commission": 0,
+        "hours": 100,
+        "totalCostPerHour": 80.88,
+        "finalHourlyRate": 113.24,
+        "projectTotal": 11323.78
+      }
+    ],
+    "totalHours": 400,
+    "totalCost": 19644,
+    "totalClient": 30735.98,
+    "id": 1770322378475,
+    "date": "05/02/2026, 17:12:58"
+  },
+  {
+    "budgetName": "Teste 2",
+    "observations": "testando ainda",
+    "calculationType": "62.25",
+    "calculationTypeLabel": "Projetos",
+    "projects": [
+      {
+        "name": "Projeto 1",
+        "costPerHour": 62.25,
+        "tax": 22,
+        "load": 35,
+        "margin": 50,
+        "commission": 0,
+        "hours": 10,
+        "totalCostPerHour": 102.53,
+        "finalHourlyRate": 153.79,
+        "projectTotal": 24606.18
+      },
+      {
+        "name": "Projeto 3",
+        "costPerHour": 62.25,
+        "tax": 22,
+        "load": 35,
+        "margin": 30,
+        "commission": 0,
+        "hours": 20,
+        "totalCostPerHour": 102.53,
+        "finalHourlyRate": 133.28,
+        "projectTotal": 2665.67
+      }
+    ],
+    "totalHours": 30,
+    "totalCost": 1867.5,
+    "totalClient": 27271.85,
+    "id": 1770321981503,
+    "date": "05/02/2026, 17:06:21"
+  },
+  {
+    "budgetName": "TEste",
+    "observations": "testando",
+    "calculationType": "62.25",
+    "calculationTypeLabel": "Projetos",
+    "projects": [
+      {
+        "name": "Projeto 1",
+        "costPerHour": 62.25,
+        "tax": 22,
+        "load": 35,
+        "margin": 50,
+        "commission": 0,
+        "hours": 160,
+        "totalCostPerHour": 102.53,
+        "finalHourlyRate": 153.79,
+        "projectTotal": 24606.18
+      },
+      {
+        "name": "Projeto 2",
+        "costPerHour": 62.25,
+        "tax": 22,
+        "load": 35,
+        "margin": 40,
+        "commission": 0,
+        "hours": 100,
+        "totalCostPerHour": 102.53,
+        "finalHourlyRate": 143.54,
+        "projectTotal": 14353.61
+      }
+    ],
+    "totalHours": 260,
+    "totalCost": 16185,
+    "totalClient": 38959.79,
+    "id": 1770321899578,
+    "date": "05/02/2026, 17:04:59"
+  }
+]
